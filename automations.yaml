@@ -116,6 +116,16 @@
     entity_id: 30a8b83ee300274727a37de10e9d30b7
     type: set_hvac_mode
     hvac_mode: heat
+  - if:
+    - condition: state
+      entity_id: binary_sensor.study_trv_temp_switch_on
+      state: 'off'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
   mode: single
 - id: '1695220839312'
   alias: boiler_off_binary_sensor
@@ -140,4 +150,14 @@
     entity_id: 30a8b83ee300274727a37de10e9d30b7
     type: set_hvac_mode
     hvac_mode: 'off'
+  - if:
+    - condition: state
+      entity_id: binary_sensor.study_trv_temp_switch_off
+      state: 'on'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
   mode: single
