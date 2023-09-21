@@ -96,14 +96,20 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.study_trv_temp_switch_on
-    from: 'off'
-    to: 'on'
+    - binary_sensor.study_trv_temp_switch_off
+    from: 'on'
+    to: 'off'
     for:
       hours: 0
       minutes: 0
       seconds: 5
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.at_least_one_trv_active
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.study_trv_temp_switch_on
+    state: 'on'
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
     domain: climate
@@ -124,7 +130,10 @@
       hours: 0
       minutes: 0
       seconds: 5
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.study_trv_temp_switch_off
+    state: 'on'
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
     domain: climate
