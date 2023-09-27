@@ -46,27 +46,33 @@
   # However, it was turning boiler on when "run" automation initiated, 
   # so an if condition added if all TRVs below set temp, then switch to off
   action:
-  - device_id: cd11a01a85f99087427fcea9e2514b37
-    domain: climate
-    entity_id: 30a8b83ee300274727a37de10e9d30b7
-    type: set_hvac_mode
-    hvac_mode: heat
-  - if:
-    - condition: and
-      # To add TRV add TRV binary sensor belw
-      conditions:
-      - condition: state
-        entity_id: binary_sensor.study_trv_temp_switch_on
-        state: 'off'
-      - condition: state
-        entity_id: binary_sensor.livingroom_trv_temp_switch_on
-        state: 'off'
-    then:
-    - device_id: cd11a01a85f99087427fcea9e2514b37
-      domain: climate
-      entity_id: 30a8b83ee300274727a37de10e9d30b7
-      type: set_hvac_mode
-      hvac_mode: 'off'
+  ##  - device_id: cd11a01a85f99087427fcea9e2514b37
+  ## domain: climate
+##      entity_id: 30a8b83ee300274727a37de10e9d30b7
+    ##type: set_hvac_mode
+    ##hvac_mode: heat
+    # set to the threshold temperature that it will activate heating
+    - service: "climate.set_temperature"
+      data_template:
+        entity_id: climate.boiler_thermostat_thermostat
+        temperature: 24
+        hvac_mode: heat
+    - if:
+      - condition: and
+        # To add TRV add TRV binary sensor belw
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.study_trv_temp_switch_on
+            state: 'off'
+          - condition: state
+            entity_id: binary_sensor.livingroom_trv_temp_switch_on
+            state: 'off'
+      then:
+      - device_id: cd11a01a85f99087427fcea9e2514b37
+        domain: climate
+        entity_id: 30a8b83ee300274727a37de10e9d30b7
+        type: set_hvac_mode
+        hvac_mode: 'off'
   mode: single
   #Switch boiler off if all TRVs above the threshold temp. 
   # The automation uses a binary sensor.
