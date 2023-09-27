@@ -37,10 +37,18 @@
         type: set_hvac_mode
         hvac_mode: 'off'
   mode: restart
+#Switch boiler on if one or more TRV below the threshold temp. 
+# The automation uses a binary sensor.
+# To add TRV first define the binary sensor in configutation.yaml and
+# reload the yaml
 - id: '1695220711402'
   alias: boiler_on_binary_sensor
   description: ''
   trigger:
+  # Check if any of the TRVs change from off to on
+  # HA YAML default treats the triggers as "or" 
+  # see https://community.home-assistant.io/t/can-you-use-multiple-triggers-with-an-or-statement-like-multiple-conditions/3533/8
+  # To add TRV, add a new "platform: state" chunk as below with new binary sensor
   - platform: state
     entity_id:
     - binary_sensor.study_trv_temp_switch_on
@@ -50,13 +58,32 @@
       hours: 0
       minutes: 0
       seconds: 5
+  - platform: state
+    entity_id:
+    - binary_sensor.livingroom_trv_temp_switch_on
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  # Confirm that one of the TRVs is in the on.
   condition:
   - condition: state
     entity_id: binary_sensor.at_least_one_trv_active
     state: 'on'
-  - condition: state
-    entity_id: binary_sensor.study_trv_temp_switch_on
-    state: 'on'
+  - condition: or
+    conditions:
+    # To add TRV, add a condition as below for new binary
+    - condition: state
+      entity_id: binary_sensor.study_trv_temp_switch_on
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.livingroom_trv_temp_switch_on
+      state: 'on'
+  # Turn boiler on
+  # However, it was turning boiler on when "run" automation initiated, 
+  # so an if condition added if all TRVs below set temp, then switch to off
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
     domain: climate
@@ -64,9 +91,15 @@
     type: set_hvac_mode
     hvac_mode: heat
   - if:
-    - condition: state
-      entity_id: binary_sensor.study_trv_temp_switch_on
-      state: 'off'
+    - condition: and
+      # To add TRV add TRV binary sensor belw
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.study_trv_temp_switch_on
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.livingroom_trv_temp_switch_on
+        state: 'off'
     then:
     - device_id: cd11a01a85f99087427fcea9e2514b37
       domain: climate
@@ -74,10 +107,18 @@
       type: set_hvac_mode
       hvac_mode: 'off'
   mode: single
+  #Switch boiler off if all TRVs above the threshold temp. 
+  # The automation uses a binary sensor.
+  # To add TRV first define the binary sensor in configutation.yaml and
 - id: '1695220839312'
   alias: boiler_off_binary_sensor
   description: ''
   trigger:
+  # The trigger is based on only one TRV switching from on to off
+  # The condition then checks if now all TRVs are in the off state
+  # This could be made more elegant by using an AND 
+  #   template for the trigger but not essential
+  # To add TRV, add a new "platform: state" chunk as below with new binary sensor
   - platform: state
     entity_id:
     - binary_sensor.study_trv_temp_switch_on
@@ -87,20 +128,45 @@
       hours: 0
       minutes: 0
       seconds: 5
+    alias: When study TRV is below set temp for 5s
+  - platform: state
+    entity_id:
+    - binary_sensor.livingroom_trv_temp_switch_on
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+# Check that all binary sensors are "off"      
   condition:
-  - condition: state
-    entity_id: binary_sensor.study_trv_temp_switch_off
-    state: 'on'
+  - condition: and
+    conditions:
+    # To add TRV, add binary sensor condition
+    - condition: state
+      entity_id: binary_sensor.study_trv_temp_switch_on
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.livingroom_trv_temp_switch_on
+      state: 'off'
+    alias: Test that all TRVs temps are below set temp
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
     domain: climate
     entity_id: 30a8b83ee300274727a37de10e9d30b7
     type: set_hvac_mode
     hvac_mode: 'off'
+    # Only switch off when all TRV binary sensors are off
   - if:
-    - condition: state
-      entity_id: binary_sensor.study_trv_temp_switch_on
-      state: 'off'
+    - condition: and
+      conditions:
+      # To add TRV add condition
+      - condition: state
+        entity_id: binary_sensor.study_trv_temp_switch_on
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.livingroom_trv_temp_switch_on
+        state: 'off'
     then:
     - device_id: cd11a01a85f99087427fcea9e2514b37
       domain: climate
