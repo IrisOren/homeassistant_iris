@@ -177,22 +177,4 @@
     entity_id: 30a8b83ee300274727a37de10e9d30b7
     type: set_hvac_mode
     hvac_mode: 'off'
-    # Only switch off when all TRV binary sensors are off
-    # I have commented the below out, as I think it was superflouos but leaving in until further testing
-##  - if:
-##    - condition: and
-##      conditions:
-##      # To add TRV add condition
-##      - condition: state
-##        entity_id: binary_sensor.study_trv_temp_switch_on
-##        state: 'off'
-##      - condition: state
-##        entity_id: binary_sensor.livingroom_trv_temp_switch_on
-##        state: 'off'
-##    then:
-##    - device_id: cd11a01a85f99087427fcea9e2514b37
-##      domain: climate
-##      entity_id: 30a8b83ee300274727a37de10e9d30b7
-##      type: set_hvac_mode
-##      hvac_mode: 'off'
   mode: single
