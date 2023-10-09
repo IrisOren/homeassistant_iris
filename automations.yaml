@@ -28,6 +28,24 @@
       hours: 0
       minutes: 0
       seconds: 5
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_trv_temp_switch_on
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: state
+    entity_id:
+    - binary_sensor.spare_room_1_trv_temp_switch_on
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   # Confirm that one of the TRVs is in the on.
   condition:
   - condition: state
@@ -41,6 +59,12 @@
       state: 'on'
     - condition: state
       entity_id: binary_sensor.livingroom_trv_temp_switch_on
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.bedroom_trv_temp_switch_on
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
       state: 'on'
   # Turn boiler on
   # However, it was turning boiler on when "run" automation initiated, 
@@ -66,6 +90,12 @@
             state: 'off'
           - condition: state
             entity_id: binary_sensor.livingroom_trv_temp_switch_on
+            state: 'off'
+          - condition: state
+            entity_id: binary_sensor.bedroom_trv_temp_switch_on
+            state: 'off'
+          - condition: state
+            entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
             state: 'off'
       then:
       - device_id: cd11a01a85f99087427fcea9e2514b37
@@ -95,10 +125,28 @@
       hours: 0
       minutes: 0
       seconds: 5
-    alias: When study TRV is below set temp for 5s
+    #alias: When study TRV is below set temp for 5s
   - platform: state
     entity_id:
     - binary_sensor.livingroom_trv_temp_switch_on
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_trv_temp_switch_on
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: state
+    entity_id:
+    - binary_sensor.spare_room_1_trv_temp_switch_on
     from: 'on'
     to: 'off'
     for:
@@ -116,6 +164,12 @@
     - condition: state
       entity_id: binary_sensor.livingroom_trv_temp_switch_on
       state: 'off'
+    - condition: state
+      entity_id: binary_sensor.bedroom_trv_temp_switch_on
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
+      state: 'off'
     alias: Test that all TRVs temps are below set temp
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
@@ -124,20 +178,21 @@
     type: set_hvac_mode
     hvac_mode: 'off'
     # Only switch off when all TRV binary sensors are off
-  - if:
-    - condition: and
-      conditions:
-      # To add TRV add condition
-      - condition: state
-        entity_id: binary_sensor.study_trv_temp_switch_on
-        state: 'off'
-      - condition: state
-        entity_id: binary_sensor.livingroom_trv_temp_switch_on
-        state: 'off'
-    then:
-    - device_id: cd11a01a85f99087427fcea9e2514b37
-      domain: climate
-      entity_id: 30a8b83ee300274727a37de10e9d30b7
-      type: set_hvac_mode
-      hvac_mode: 'off'
+    # I have commented the below out, as I think it was superflouos but leaving in until further testing
+##  - if:
+##    - condition: and
+##      conditions:
+##      # To add TRV add condition
+##      - condition: state
+##        entity_id: binary_sensor.study_trv_temp_switch_on
+##        state: 'off'
+##      - condition: state
+##        entity_id: binary_sensor.livingroom_trv_temp_switch_on
+##        state: 'off'
+##    then:
+##    - device_id: cd11a01a85f99087427fcea9e2514b37
+##      domain: climate
+##      entity_id: 30a8b83ee300274727a37de10e9d30b7
+##      type: set_hvac_mode
+##      hvac_mode: 'off'
   mode: single
