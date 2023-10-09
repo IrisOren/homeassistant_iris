@@ -21,7 +21,7 @@ template:
       - name: "at_least_one_trv_active"
       #- description: "Binary indicator for at least one trv being in the on state for switching on the boiler"
         state: >
-          {% if is_state("climate.lumi_lumi_airrtc_agl001_thermostat", "heat") and is_state("climate.lumi_lumi_airrtc_agl001_thermostat_2", "heat") %}
+          {% if is_state("climate.lumi_lumi_airrtc_agl001_thermostat", "heat") or is_state("climate.lumi_lumi_airrtc_agl001_thermostat_2", "heat") or is_state("climate.lumi_lumi_airrtc_agl001_thermostat_3", "heat") or is_state("climate.aqara_trv_spare_room_1_thermostat", "heat")%}
               True
           {% else %}
             False
@@ -38,5 +38,11 @@ template:
       - name: "livingroom_trv_temp_switch_off"
         state: >
           {{ int(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "current_temperature")) > int(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "temperature")) }}
+      - name: "bedroom_trv_temp_switch_on"
+        state: >
+          {{ int(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "current_temperature")) < int(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "temperature")) }}
+      - name: "spare_room_1_trv_temp_switch_on"
+        state: >
+           {{ int(state_attr("climate.aqara_trv_spare_room_1_thermostat", "current_temperature")) < int(state_attr("climate.aqara_trv_spare_room_1_thermostat", "temperature")) }}
                 
           
