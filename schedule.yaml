@@ -1,25 +1,61 @@
 thermostat_schedule_livingroom:
   name: "Thermostat schedule"
   monday:
-    - from: "10:40:00"
+    - from: "9:00:00"
       to: "21:00:00"
   tuesday:
-    - from: "17:00:00"
+    - from: "9:00:00"
       to: "21:00:00"
   wednesday:
-    - from: "17:00:00"
+    - from: "9:00:00"
       to: "21:00:00"
   thursday:
-    - from: "17:00:00"
+    - from: "9:00:00"
       to: "21:00:00"
   friday:
-    - from: "17:00:00"
-      to: "23:00:00"
-  saturday:
-    - from: "07:00:00"
-      to: "10:00:00"
-    - from: "16:00:00"
-      to: "23:00:00"
-  sunday:
-    - from: "07:00:00"
+    - from: "9:00:00"
       to: "21:00:00"
+  saturday:
+    - from: "9:00:00"
+      to: "21:00:00"
+  sunday:
+    - from: "09:00:00"
+      to: "21:00:00"
+      
+thermostat_schedule_bedroom:
+  name: "Thermostat schedule"
+  monday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  tuesday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  wednesday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  thursday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  friday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  saturday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
+  sunday:
+    - from: "6:30:00"
+      to: "8:00:00"
+    - from: "20:30:00"
+      to: "21:30:00"
