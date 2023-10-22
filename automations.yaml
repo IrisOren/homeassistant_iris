@@ -1,15 +1,7 @@
-#Switch boiler on if one or more TRV below the threshold temp. 
-# The automation uses a binary sensor.
-# To add TRV first define the binary sensor in configutation.yaml and
-# reload the yaml
 - id: '1695220711402'
   alias: boiler_on_binary_sensor
   description: ''
   trigger:
-  # Check if any of the TRVs change from off to on
-  # HA YAML default treats the triggers as "or" 
-  # see https://community.home-assistant.io/t/can-you-use-multiple-triggers-with-an-or-statement-like-multiple-conditions/3533/8
-  # To add TRV, add a new "platform: state" chunk as below with new binary sensor
   - platform: state
     entity_id:
     - binary_sensor.study_trv_temp_switch_on
@@ -46,14 +38,12 @@
       hours: 0
       minutes: 0
       seconds: 5
-  # Confirm that one of the TRVs is in the on.
   condition:
   - condition: state
     entity_id: binary_sensor.at_least_one_trv_active
     state: 'on'
   - condition: or
     conditions:
-    # To add TRV, add a condition as below for new binary
     - condition: state
       entity_id: binary_sensor.study_trv_temp_switch_on
       state: 'on'
@@ -66,56 +56,38 @@
     - condition: state
       entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
       state: 'on'
-  # Turn boiler on
-  # However, it was turning boiler on when "run" automation initiated, 
-  # so an if condition added if all TRVs below set temp, then switch to off
   action:
-  ##  - device_id: cd11a01a85f99087427fcea9e2514b37
-  ## domain: climate
-##      entity_id: 30a8b83ee300274727a37de10e9d30b7
-    ##type: set_hvac_mode
-    ##hvac_mode: heat
-    # set to the threshold temperature that it will activate heating
-    - service: "climate.set_temperature"
-      data_template:
-        entity_id: climate.boiler_thermostat_thermostat
-        temperature: 24
-        hvac_mode: heat
-    - if:
-      - condition: and
-        # To add TRV add TRV binary sensor belw
-        conditions:
-          - condition: state
-            entity_id: binary_sensor.study_trv_temp_switch_on
-            state: 'off'
-          - condition: state
-            entity_id: binary_sensor.livingroom_trv_temp_switch_on
-            state: 'off'
-          - condition: state
-            entity_id: binary_sensor.bedroom_trv_temp_switch_on
-            state: 'off'
-          - condition: state
-            entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
-            state: 'off'
-      then:
-      - device_id: cd11a01a85f99087427fcea9e2514b37
-        domain: climate
-        entity_id: 30a8b83ee300274727a37de10e9d30b7
-        type: set_hvac_mode
-        hvac_mode: 'off'
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.boiler_thermostat_thermostat
+      temperature: 24
+      hvac_mode: heat
+  - if:
+    - condition: and
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.study_trv_temp_switch_on
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.livingroom_trv_temp_switch_on
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.bedroom_trv_temp_switch_on
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
+        state: 'off'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
   mode: single
-  #Switch boiler off if all TRVs above the threshold temp. 
-  # The automation uses a binary sensor.
-  # To add TRV first define the binary sensor in configutation.yaml and
 - id: '1695220839312'
   alias: boiler_off_binary_sensor
   description: ''
   trigger:
-  # The trigger is based on only one TRV switching from on to off
-  # The condition then checks if now all TRVs are in the off state
-  # This could be made more elegant by using an AND 
-  #   template for the trigger but not essential
-  # To add TRV, add a new "platform: state" chunk as below with new binary sensor
   - platform: state
     entity_id:
     - binary_sensor.study_trv_temp_switch_on
@@ -125,7 +97,6 @@
       hours: 0
       minutes: 0
       seconds: 5
-    #alias: When study TRV is below set temp for 5s
   - platform: state
     entity_id:
     - binary_sensor.livingroom_trv_temp_switch_on
@@ -153,11 +124,9 @@
       hours: 0
       minutes: 0
       seconds: 5
-# Check that all binary sensors are "off"      
   condition:
   - condition: and
     conditions:
-    # To add TRV, add binary sensor condition
     - condition: state
       entity_id: binary_sensor.study_trv_temp_switch_on
       state: 'off'
@@ -178,67 +147,71 @@
     type: set_hvac_mode
     hvac_mode: 'off'
   mode: single
-  
-  
-  
-  ###################################################
-  
 - alias: livingroom_set_temp_schedule_on
   trigger:
-    - platform: state
-      entity_id: schedule.thermostat_schedule_livingroom
-  condition: "{{ trigger.to_state.state in ['on'] }}"
+  - platform: state
+    entity_id: schedule.thermostat_schedule_livingroom
+  condition: '{{ trigger.to_state.state in [''on''] }}'
   action:
-    - service: climate.set_temperature
-      target: 
-        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
-      data:
-        temperature: 16.5
-        hvac_mode: heat
-        
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+    data:
+      temperature: 16.5
+      hvac_mode: heat
+  id: 80644456db0f44119aaf718df9530b48
 - alias: livingroom_set_temp_schedule_off
   trigger:
-    - platform: state
-      entity_id: schedule.thermostat_schedule_livingroom
-  condition: "{{ trigger.to_state.state in ['off'] }}"
+  - platform: state
+    entity_id: schedule.thermostat_schedule_livingroom
+  condition: '{{ trigger.to_state.state in [''off''] }}'
   action:
-    - service: climate.set_temperature
-      target: 
-        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
-      data:
-        temperature: 7
-        hvac_mode: heat
-  
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+    data:
+      temperature: 7
+      hvac_mode: heat
+  id: ad4c3b05b0d14994a9878a090d3d39f3
 - alias: bedroom_set_temp_schedule_on
   trigger:
-    - platform: state
-      entity_id: schedule.thermostat_schedule_bedroom
-  condition: "{{ trigger.to_state.state in ['on'] }}"
+  - platform: state
+    entity_id: schedule.thermostat_schedule_bedroom
+  condition: '{{ trigger.to_state.state in [''on''] }}'
   action:
-    - service: climate.set_temperature
-      target: 
-        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
-      data:
-        temperature: 17
-        hvac_mode: heat
-        
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+    data:
+      temperature: 17
+      hvac_mode: heat
+  id: f37ee745a4994966a33d7ba8c1a093c2
 - alias: bedroom_set_temp_schedule_off
   trigger:
-    - platform: state
-      entity_id: schedule.thermostat_schedule_bedroom
-  condition: "{{ trigger.to_state.state in ['off'] }}"
+  - platform: state
+    entity_id: schedule.thermostat_schedule_bedroom
+  condition: '{{ trigger.to_state.state in [''off''] }}'
   action:
-    - service: climate.set_temperature
-      target: 
-        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
-      data:
-        temperature: 7
-        hvac_mode: heat
-  
-#-"
-        
-        
-        
-        
-        
-        
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+    data:
+      temperature: 7
+      hvac_mode: heat
+  id: 9f369381ea0c4bc092e865ddcda64e83
+- id: '1697623210880'
+  alias: iris_home_heat
+  description: Iris only home
+  trigger:
+  - platform: state
+    entity_id: input_button.iris_is_home_heating
+  action:
+  - service: automation.trigger
+    entity_id:
+    - automation.boiler_on_binary_sensor
+    - automation.boiler_off_binary_sensor
+    - automation.bedroom_set_temp_schedule_on
+    - automation.bedroom_set_temp_schedule_off
+    - automation.livingroom_set_temp_schedule_off_5
+    - automation.livingroom_set_temp_schedule_on_3
+  mode: single
