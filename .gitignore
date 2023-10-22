@@ -11,3 +11,5 @@
 /zigbee.db
 /zigbee.db-shm
 /zigbee.db-wal
+secrets.yaml
+.ssh/*
