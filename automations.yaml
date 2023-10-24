@@ -210,8 +210,66 @@
     entity_id:
     - automation.boiler_on_binary_sensor
     - automation.boiler_off_binary_sensor
-    - automation.bedroom_set_temp_schedule_on
-    - automation.bedroom_set_temp_schedule_off
     - automation.livingroom_set_temp_schedule_off_5
     - automation.livingroom_set_temp_schedule_on_3
+    - automation.bedroom_set_temp_test
+  mode: single
+- id: '1698078005986'
+  alias: bedroom_set_temp_scheduled
+  description: Set bedroom thermostat to on and off temps
+  trigger:
+  - platform: state
+    entity_id: schedule.thermostat_schedule_bedroom
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+    data:
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 17, 7) }}'
+      hvac_mode: heat
+  mode: single
+- id: '1698153653547'
+  description: Set bedroom thermostat to on and off temps
+  trigger:
+  - platform: state
+    entity_id: schedule.thermostat_schedule_bedroom
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+    data:
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 17, 7) }}'
+      hvac_mode: heat
+  mode: single
+- id: '1698153675738'
+  alias: livingroom_set_temp_scheduled
+  description: Set livingroom thermostat to on and off temps
+  trigger:
+  - platform: state
+    entity_id: schedule.thermostat_schedule_livingroom
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+    data:
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 16.5, 7) }}'
+      hvac_mode: heat
+  mode: single
+- id: '1698154033800'
+  alias: spareroom_1_set_temp_scheduled
+  description: Set livingroom thermostat to on and off temps
+  trigger:
+  - platform: state
+    entity_id: schedule.thermostat_schedule_spareroom_1
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.aqara_trv_spare_room_1_thermostat
+    data:
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 17, 7) }}'
+      hvac_mode: heat
   mode: single
