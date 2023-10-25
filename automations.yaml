@@ -263,12 +263,12 @@
   description: Set spare thermostat to on and off temps
   trigger:
   - platform: state
-    entity_id: schedule.thermostat_schedule_livingroom
+    entity_id: schedule.thermostat_schedule_spareroom_1
   condition: []
   action:
   - service: climate.set_temperature
     target:
-      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+      entity_id: climate.aqara_trv_spare_room_1_thermostat
     data:
       temperature: '{{ iif(trigger.to_state.state == ''on'', 16.5, 7) }}'
       hvac_mode: heat
