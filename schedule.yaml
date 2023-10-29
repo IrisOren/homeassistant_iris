@@ -65,18 +65,18 @@ thermostat_schedule_spareroom_1:
   monday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
-#   - from: "20:30:00"
-#      to: "21:30:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
   tuesday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
-#    - from: "20:30:00"
-#      to: "21:30:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
   wednesday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
-#    - from: "20:30:00"
-#      to: "21:30:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
   thursday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
@@ -85,8 +85,46 @@ thermostat_schedule_spareroom_1:
   friday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
+  saturday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
 #    - from: "20:30:00"
 #      to: "21:30:00"
+  sunday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "20:30:00"
+#      to: "21:30:00"
+
+thermostat_schedule_study:
+  name: "Thermostat schedule spareroom_1"
+  monday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
+  tuesday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
+  wednesday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
+  thursday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "20:30:00"
+#      to: "21:30:00"
+  friday:
+#    - from: "05:30:00"
+#      to: "08:00:00"
+#    - from: "19:00:00"
+#      to: "22:30:00"
   saturday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
