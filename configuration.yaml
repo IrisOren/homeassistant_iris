@@ -44,5 +44,7 @@ template:
       - name: "spare_room_1_trv_temp_switch_on"
         state: >
            {{ int(state_attr("climate.aqara_trv_spare_room_1_thermostat", "current_temperature")) < int(state_attr("climate.aqara_trv_spare_room_1_thermostat", "temperature")) }}
-                
-          
+      - name: "at_least_one_trv_heating"
+        state: >
+          {{ is_state("binary_sensor.livingroom_trv_temp_switch_on", "on") or is_state("binary_sensor.spare_room_1_trv_temp_switch_on", "on") or is_state("binary_sensor.study_trv_temp_switch_on", "on")  or is_state("binary_sensor.bedroom_trv_temp_switch_on", "on") }}
+             
