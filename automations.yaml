@@ -5,7 +5,6 @@
   - platform: state
     entity_id:
     - binary_sensor.study_trv_temp_switch_on
-    from: 'off'
     to: 'on'
     for:
       hours: 0
@@ -14,7 +13,6 @@
   - platform: state
     entity_id:
     - binary_sensor.livingroom_trv_temp_switch_on
-    from: 'off'
     to: 'on'
     for:
       hours: 0
@@ -23,7 +21,6 @@
   - platform: state
     entity_id:
     - binary_sensor.bedroom_trv_temp_switch_on
-    from: 'off'
     to: 'on'
     for:
       hours: 0
@@ -32,7 +29,6 @@
   - platform: state
     entity_id:
     - binary_sensor.spare_room_1_trv_temp_switch_on
-    from: 'off'
     to: 'on'
     for:
       hours: 0
@@ -261,7 +257,7 @@
     target:
       entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
     data:
-      temperature: '{{ iif(trigger.to_state.state == ''on'', 16.5, 7) }}'
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 17.5, 7) }}'
       hvac_mode: heat
   mode: single
 - id: '1698154033800'
@@ -292,7 +288,20 @@
     entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
     type: set_hvac_mode
     hvac_mode: 'off'
+  - if:
+    - condition: state
+      entity_id: binary_sensor.at_least_one_trv_heating
+      state: 'off'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
   - delay: '{{(states(''input_number.heating_pause_hrs_livingroom'')|int) * 3600}}'
+  - service: automation.trigger
+    entity_id:
+    - automation.boiler_on_binary_sensor
   - device_id: f365704d295f41afee6f6d5b7a8d49b0
     domain: climate
     entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
