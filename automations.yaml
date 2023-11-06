@@ -293,6 +293,10 @@
       minutes: 0
       seconds: 5
       milliseconds: 0
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.living_room_pause_on
+      state: 'on'
   - if:
     - condition: state
       entity_id: binary_sensor.at_least_one_trv_heating
@@ -309,6 +313,10 @@
     entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
     type: set_hvac_mode
     hvac_mode: heat
+  - service: python_script.set_state
+    data_template:
+      entity_id: binary_sensor.living_room_pause_on
+      state: 'off'
   mode: single
 - id: '1698578557279'
   alias: pause_bedroom_heat_schedule
