@@ -316,7 +316,7 @@
   trigger:
   - platform: state
     entity_id:
-    - input_number.heating_pause_hrs_bedroom
+    - input_button.pause_run_bedroom
   condition: []
   action:
   - device_id: 1046a437bd3e2efb2c02dbfdc956c08a
@@ -324,7 +324,22 @@
     entity_id: e142c2b8e0d54c1c61bf352aecb84ac9
     type: set_hvac_mode
     hvac_mode: 'off'
-  - delay: '{{(states(''input_number.heating_pause_hrs_bedroomroom'')|int) * 3600}}'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - if:
+    - condition: state
+      entity_id: binary_sensor.at_least_one_trv_heating
+      state: 'off'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
+  - delay: '{{(states(''input_number.heating_pause_hrs_bedroom'')|int) * 3600}}'
   - device_id: 1046a437bd3e2efb2c02dbfdc956c08a
     domain: climate
     entity_id: e142c2b8e0d54c1c61bf352aecb84ac9
@@ -383,6 +398,21 @@
   - device_id: f365704d295f41afee6f6d5b7a8d49b0
     domain: climate
     entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
+    type: set_hvac_mode
+    hvac_mode: heat
+  mode: single
+- id: '1699456287633'
+  alias: cancel_pause_run_bedroom
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_pause_run_bedroom
+  condition: []
+  action:
+  - device_id: 1046a437bd3e2efb2c02dbfdc956c08a
+    domain: climate
+    entity_id: e142c2b8e0d54c1c61bf352aecb84ac9
     type: set_hvac_mode
     hvac_mode: heat
   mode: single
