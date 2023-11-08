@@ -14,6 +14,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 schedule: !include schedule.yaml
+python_script:
 
        
 template:
@@ -47,4 +48,7 @@ template:
       - name: "at_least_one_trv_heating"
         state: >
           {{ is_state("binary_sensor.livingroom_trv_temp_switch_on", "on") or is_state("binary_sensor.spare_room_1_trv_temp_switch_on", "on") or is_state("binary_sensor.study_trv_temp_switch_on", "on")  or is_state("binary_sensor.bedroom_trv_temp_switch_on", "on") }}
-             
+      - name: "living_room_pause_on"
+        #set to False as default
+        state: >
+          False
