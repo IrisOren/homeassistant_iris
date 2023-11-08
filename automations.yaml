@@ -359,6 +359,21 @@
     entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
     type: set_hvac_mode
     hvac_mode: 'off'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - if:
+    - condition: state
+      entity_id: binary_sensor.at_least_one_trv_heating
+      state: 'off'
+    then:
+    - device_id: cd11a01a85f99087427fcea9e2514b37
+      domain: climate
+      entity_id: 30a8b83ee300274727a37de10e9d30b7
+      type: set_hvac_mode
+      hvac_mode: 'off'
   - delay: '{{(states(''input_number.heating_pause_hrs_study'')|int) * 3600}}'
   - device_id: 0ba8f70e7545714f072c05bbba69e792
     domain: climate
@@ -415,4 +430,41 @@
     entity_id: e142c2b8e0d54c1c61bf352aecb84ac9
     type: set_hvac_mode
     hvac_mode: heat
+  mode: single
+- id: '1699459737475'
+  alias: cancel_pause_run_study
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_pause_run_study
+  condition: []
+  action:
+  - device_id: 0ba8f70e7545714f072c05bbba69e792
+    domain: climate
+    entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
+    type: set_hvac_mode
+    hvac_mode: heat
+  mode: single
+- id: '1699463305812'
+  alias: study_set_temp_scheduled
+  description: Set study thermostat to on and off temps
+  trigger:
+  - platform: state
+    entity_id:
+    - schedule.thermostat_schedule_study
+  condition:
+  - condition: device
+    device_id: 0ba8f70e7545714f072c05bbba69e792
+    domain: climate
+    entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
+    type: is_hvac_mode
+    hvac_mode: heat
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+    data:
+      temperature: '{{ iif(trigger.to_state.state == ''on'', 17.5, 7) }}'
+      hvac_mode: heat
   mode: single
