@@ -482,7 +482,7 @@
       type: is_hvac_mode
       hvac_mode: 'off'
     then: []
-  - delay: '{{(states(''input_number.heating_pause_hrs_study'')|int) * 60}}'
+  - delay: '{{(states(''input_number.heating_pause_hrs_study'')|int) * 3600}}'
   - device_id: 0ba8f70e7545714f072c05bbba69e792
     domain: climate
     entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
