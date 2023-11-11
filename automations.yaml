@@ -385,21 +385,6 @@
     hvac_mode: heat
     enabled: true
   mode: single
-- id: '1699274525583'
-  alias: cancel_pause_run_spareroom_1
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - input_button.cancel_pause_run_spareroom_1
-  condition: []
-  action:
-  - device_id: f365704d295f41afee6f6d5b7a8d49b0
-    domain: climate
-    entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
-    type: set_hvac_mode
-    hvac_mode: heat
-  mode: single
 - id: '1699456287633'
   alias: cancel_pause_run_bedroom
   description: ''
@@ -501,6 +486,21 @@
   - device_id: b7d32ff1c653c6248b94bb95b4a5a9a5
     domain: climate
     entity_id: 38611b45592603cc049d12faab3a0a13
+    type: set_hvac_mode
+    hvac_mode: heat
+  mode: single
+- id: '1699718215298'
+  alias: cancel_pause_run_livingroom
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_pause_run_livingroom
+  condition: []
+  action:
+  - device_id: f365704d295f41afee6f6d5b7a8d49b0
+    domain: climate
+    entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
     type: set_hvac_mode
     hvac_mode: heat
   mode: single
