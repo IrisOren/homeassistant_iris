@@ -503,4 +503,16 @@
   - delay: '{{(states(''input_number.heating_pause_hrs_all'')|int) * 30}}'
   - service: homeassistant.turn_on
     entity_id: group.thermostats
-mode: single
+  mode: single
+- id: '1699723279512'
+  alias: cancel_pause_run_all
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_pause_run_all
+  condition: []
+  action:
+  - service: homeassistant.turn_on
+    entity_id: group.thermostats
+  mode: single
