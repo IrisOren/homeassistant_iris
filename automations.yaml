@@ -489,18 +489,18 @@
     type: set_hvac_mode
     hvac_mode: heat
   mode: single
-- id: '1699718215298'
-  alias: cancel_pause_run_livingroom
+- id: '1699720765804'
+  alias: pause_all
   description: ''
   trigger:
   - platform: state
     entity_id:
-    - input_button.cancel_pause_run_livingroom
+    - input_button.pause_run_all
   condition: []
   action:
-  - device_id: f365704d295f41afee6f6d5b7a8d49b0
-    domain: climate
-    entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
-    type: set_hvac_mode
-    hvac_mode: heat
-  mode: single
+  - service: homeassistant.turn_off
+    entity_id: group.thermostats
+  - delay: '{{(states(''input_number.heating_pause_hrs_all'')|int) * 30}}'
+  - service: homeassistant.turn_on
+    entity_id: group.thermostats
+mode: single
