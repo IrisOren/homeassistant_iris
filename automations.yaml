@@ -500,7 +500,7 @@
   action:
   - service: homeassistant.turn_off
     entity_id: group.thermostats
-  - delay: '{{(states(''input_number.heating_pause_hrs_all'')|int) * 30}}'
+  - delay: '{{(states(''input_number.heating_pause_hrs_all'')|int) * 3600}}'
   - service: homeassistant.turn_on
     entity_id: group.thermostats
   mode: single
