@@ -52,3 +52,12 @@ template:
         #set to False as default
         state: >
           False
+
+group:
+  thermostats:
+    name: trv
+    entities:
+      - climate.aqara_trv_spare_room_1_thermostat
+      - climate.lumi_lumi_airrtc_agl001_thermostat
+      - climate.lumi_lumi_airrtc_agl001_thermostat_2
+      - climate.lumi_lumi_airrtc_agl001_thermostat_3
