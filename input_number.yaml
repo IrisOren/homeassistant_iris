@@ -1,0 +1,6 @@
+schedule_target_temp_livingroom:
+  name: schedule_target_temp_livingroom
+  initial: 17.5
+  min: 7
+  max: 25
+  step: 0.5

@@ -15,6 +15,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 schedule: !include schedule.yaml
 python_script:
+input_number: !include input_number.yaml
 
        
 template:
