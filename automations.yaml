@@ -91,8 +91,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 0
+      seconds: 30
   - platform: state
     entity_id:
     - binary_sensor.livingroom_trv_temp_switch_on
@@ -100,8 +100,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 0
+      seconds: 30
   - platform: state
     entity_id:
     - binary_sensor.bedroom_trv_temp_switch_on
@@ -109,8 +109,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 0
+      seconds: 30
   - platform: state
     entity_id:
     - binary_sensor.spare_room_1_trv_temp_switch_on
@@ -118,8 +118,8 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
-      seconds: 0
+      minutes: 0
+      seconds: 30
   condition:
   - condition: and
     conditions:
