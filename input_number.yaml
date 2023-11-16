@@ -4,3 +4,24 @@ schedule_target_temp_livingroom:
   min: 7
   max: 25
   step: 0.5
+  
+schedule_target_temp_bedroom:
+  name: schedule_target_temp_bedroom
+  initial: 17.5
+  min: 7
+  max: 25
+  step: 0.5
+  
+schedule_target_temp_study:
+  name: schedule_target_temp_study
+  initial: 17.5
+  min: 7
+  max: 25
+  step: 0.5
+  
+schedule_target_temp_spareroom_1:
+  name: schedule_target_temp_spareroom_1
+  initial: 17.5
+  min: 7
+  max: 25
+  step: 0.5
