@@ -169,32 +169,6 @@
       temperature: 7
       hvac_mode: heat
   id: ad4c3b05b0d14994a9878a090d3d39f3
-- alias: bedroom_set_temp_schedule_on
-  trigger:
-  - platform: state
-    entity_id: schedule.thermostat_schedule_bedroom
-  condition: '{{ trigger.to_state.state in [''on''] }}'
-  action:
-  - service: climate.set_temperature
-    target:
-      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
-    data:
-      temperature: 17
-      hvac_mode: heat
-  id: f37ee745a4994966a33d7ba8c1a093c2
-- alias: bedroom_set_temp_schedule_off
-  trigger:
-  - platform: state
-    entity_id: schedule.thermostat_schedule_bedroom
-  condition: '{{ trigger.to_state.state in [''off''] }}'
-  action:
-  - service: climate.set_temperature
-    target:
-      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
-    data:
-      temperature: 7
-      hvac_mode: heat
-  id: 9f369381ea0c4bc092e865ddcda64e83
 - id: '1697623210880'
   alias: iris_home_heat
   description: Iris only home
@@ -239,20 +213,6 @@
     data:
       temperature: '{{ iif(t_state == ''on'', states(''input_number.schedule_target_temp_bedroom''),
         7) }}'
-      hvac_mode: heat
-  mode: single
-- id: '1698153653547'
-  description: Set bedroom thermostat to on and off temps
-  trigger:
-  - platform: state
-    entity_id: schedule.thermostat_schedule_bedroom
-  condition: []
-  action:
-  - service: climate.set_temperature
-    target:
-      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
-    data:
-      temperature: '{{ iif(trigger.to_state.state == ''on'', 17, 7) }}'
       hvac_mode: heat
   mode: single
 - id: '1698153675738'
