@@ -276,6 +276,9 @@
       entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
       type: is_hvac_mode
       hvac_mode: heat
+    - condition: template
+      value_template: '{{is_state_attr(''automation.boost_spareroom'', ''current'',
+        0)}}'
   action:
   - service: climate.set_temperature
     target:
@@ -442,12 +445,14 @@
   - condition: and
     conditions:
     - '{{ is_state(''schedule.thermostat_schedule_study'', t_state) }}'
-  - condition: device
-    device_id: 0ba8f70e7545714f072c05bbba69e792
-    domain: climate
-    entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
-    type: is_hvac_mode
-    hvac_mode: heat
+    - condition: device
+      device_id: 0ba8f70e7545714f072c05bbba69e792
+      domain: climate
+      entity_id: 2d6fa43f6144bb6b0544cbcc778509dc
+      type: is_hvac_mode
+      hvac_mode: heat
+    - condition: template
+      value_template: '{{is_state_attr(''automation.boost_study'', ''current'', 0)}}'
   action:
   - service: climate.set_temperature
     target:
@@ -606,6 +611,82 @@
     - service: climate.set_temperature
       target:
         entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
+    enabled: true
+  mode: single
+- id: '1700569070932'
+  alias: boost_study
+  description: Boost study heat for specified time
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.boost_study
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+    data:
+      temperature: 24
+      hvac_mode: heat
+    enabled: true
+  - delay: '{{(states(''input_number.boost_time_study'')|int) * 3600}}'
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_study
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+      data:
+        temperature: '{{states(''input_number.schedule_target_temp_study'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
+    enabled: true
+  mode: single
+- id: '1700569193028'
+  alias: boost_spareroom_1
+  description: Boost spareroom_1 heat for specified time
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.boost_spareroom_1
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.aqara_trv_spare_room_1_thermostat
+    data:
+      temperature: 24
+      hvac_mode: heat
+    enabled: true
+  - delay: '{{(states(''input_number.boost_time_spareroom_1'')|int) * 3600}}'
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_spareroom_1
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.aqara_trv_spare_room_1_thermostat
+      data:
+        temperature: '{{states(''input_number.schedule_target_temp_spareroom_1'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.aqara_trv_spare_room_1_thermostat
       data:
         temperature: 7
         hvac_mode: heat
