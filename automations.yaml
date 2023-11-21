@@ -590,7 +590,7 @@
       temperature: 24
       hvac_mode: heat
     enabled: true
-  - delay: '{{(states(''input_number.boost_time_bedroom'')|int) * 30}}'
+  - delay: '{{(states(''input_number.boost_time_bedroom'')|int) * 3600}}'
   - if:
     - condition: state
       entity_id: schedule.thermostat_schedule_bedroom
