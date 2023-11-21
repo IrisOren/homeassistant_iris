@@ -206,6 +206,9 @@
       entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
       type: is_hvac_mode
       hvac_mode: heat
+    - condition: template
+      value_template: '{{is_state_attr(''automation.boost_bedroom'', ''current'',
+        0)}}'
   action:
   - service: climate.set_temperature
     target:
@@ -238,6 +241,9 @@
       entity_id: f2abf0a18da1ea1ff0c9973d02a7cec5
       type: is_hvac_mode
       hvac_mode: heat
+    - condition: template
+      value_template: '{{is_state_attr(''automation.boost_livingroom'', ''current'',
+        0)}}'
   action:
   - service: climate.set_temperature
     target:
@@ -584,7 +590,7 @@
       temperature: 24
       hvac_mode: heat
     enabled: true
-  - delay: '{{(states(''input_number.boost_time_bedroom'')|int) * 3600}}'
+  - delay: '{{(states(''input_number.boost_time_bedroom'')|int) * 30}}'
   - if:
     - condition: state
       entity_id: schedule.thermostat_schedule_bedroom
