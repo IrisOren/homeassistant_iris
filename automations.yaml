@@ -121,21 +121,29 @@
       minutes: 0
       seconds: 30
   condition:
-  - condition: and
+  - alias: Test that all TRVs temps are below set temp
+    condition: and
     conditions:
-    - condition: state
-      entity_id: binary_sensor.study_trv_temp_switch_on
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.livingroom_trv_temp_switch_on
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.bedroom_trv_temp_switch_on
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
-      state: 'off'
-    alias: Test that all TRVs temps are below set temp
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.spare_room_1_trv_temp_switch_on
+        state: 'on'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.study_trv_temp_switch_on
+        state: 'on'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.bedroom_trv_temp_switch_on
+        state: 'on'
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: binary_sensor.livingroom_trv_temp_switch_on
+        state: 'on'
   action:
   - device_id: cd11a01a85f99087427fcea9e2514b37
     domain: climate
