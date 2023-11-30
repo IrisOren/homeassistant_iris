@@ -60,3 +60,9 @@ boost_time_boiler:
   min: 0
   max: 120
   step: 15 
+  
+pre_boost_temp_livingroom:
+  name: pre_boost_temp_livingroom
+  min: 7
+  max: 30
+  initial: 17

@@ -560,6 +560,12 @@
     - input_button.boost_livingroom
   condition: []
   action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.pre_boost_temp_livingroom
+    data:
+      value: '{{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2",
+        "temperature"))}}'
   - service: climate.set_temperature
     target:
       entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
@@ -577,7 +583,7 @@
       target:
         entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
       data:
-        temperature: '{{states(''input_number.schedule_target_temp_livingroom'')}}'
+        temperature: '{{states(''input_number.pre_boost_temp_livingroom'')}}'
         hvac_mode: heat
     else:
     - service: climate.set_temperature
