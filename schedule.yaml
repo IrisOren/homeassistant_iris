@@ -25,37 +25,37 @@ thermostat_schedule_livingroom:
 thermostat_schedule_bedroom:
   name: "Thermostat schedule bedroom"
   monday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   tuesday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   wednesday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   thursday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   friday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   saturday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
   sunday:
-    - from: "05:30:00"
+    - from: "06:30:00"
       to: "08:00:00"
     - from: "20:30:00"
       to: "21:30:00"
