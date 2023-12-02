@@ -560,6 +560,12 @@
     - input_button.boost_livingroom
   condition: []
   action:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.pre_boost_temp_livingroom
+    data:
+      value: '{{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2",
+        "temperature"))}}'
   - service: climate.set_temperature
     target:
       entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
@@ -567,7 +573,7 @@
       temperature: 24
       hvac_mode: heat
     enabled: true
-  - delay: '{{(states(''input_number.boost_time_livingroom'')|int) * 60}}'
+  - delay: '{{(states(''input_number.boost_time_livingroom'')|int) * 1}}'
   - if:
     - condition: state
       entity_id: schedule.thermostat_schedule_livingroom
@@ -577,7 +583,7 @@
       target:
         entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
       data:
-        temperature: '{{states(''input_number.schedule_target_temp_livingroom'')}}'
+        temperature: '{{states(''input_number.pre_boost_temp_livingroom'')}}'
         hvac_mode: heat
     else:
     - service: climate.set_temperature
@@ -737,5 +743,125 @@
       entity_id: 30a8b83ee300274727a37de10e9d30b7
       type: set_hvac_mode
       hvac_mode: 'off'
+    enabled: true
+  mode: single
+- id: '1701348136514'
+  alias: cancel_boost_livingroom
+  description: Cancel boost living room
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_boost_livingroom
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_livingroom
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+      data:
+        temperature: '{{states(''input_number.pre_boost_temp_livingroom'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_2
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
+    enabled: true
+  mode: single
+- id: '1701521982293'
+  alias: cancel_boost_bedroom
+  description: Cancel boost bedroom
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_boost_bedroom
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_bedroom
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+      data:
+        temperature: '{{states(''input_number.pre_boost_temp_bedroom'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
+    enabled: true
+  mode: single
+- id: '1701522045777'
+  alias: cancel_boost_study
+  description: Cancel boost study
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_boost_study
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_study
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+      data:
+        temperature: '{{states(''input_number.pre_boost_temp_study'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
+    enabled: true
+  mode: single
+- id: '1701522105136'
+  alias: cancel_boost_spareroom_1
+  description: Cancel boost spareroom_1
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.cancel_boost_spareroom_1
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: schedule.thermostat_schedule_spareroom_1
+      state: 'on'
+    then:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.aqara_trv_spare_room_1_thermostat
+      data:
+        temperature: '{{states(''input_number.pre_boost_temp_spareroom_1'')}}'
+        hvac_mode: heat
+    else:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.aqara_trv_spare_room_1_thermostat
+      data:
+        temperature: 7
+        hvac_mode: heat
+      enabled: true
     enabled: true
   mode: single
