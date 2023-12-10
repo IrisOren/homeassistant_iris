@@ -127,7 +127,7 @@ thermostat_schedule_spareroom_1:
 #      to: "21:30:00"
 
 thermostat_schedule_study:
-  name: "Thermostat schedule spareroom_1"
+  name: "Thermostat schedule study"
   monday:
 #    - from: "05:30:00"
 #      to: "08:00:00"
