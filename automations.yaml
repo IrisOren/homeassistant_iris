@@ -621,7 +621,7 @@
       target:
         entity_id: climate.lumi_lumi_airrtc_agl001_thermostat_3
       data:
-        temperature: '{{states(''input_number.schedule_target_temp_bedroom'')}}'
+        temperature: '{{states(''input_number.pre_boost_temp_bedroom'')}}'
         hvac_mode: heat
     else:
     - service: climate.set_temperature
@@ -659,7 +659,7 @@
       target:
         entity_id: climate.lumi_lumi_airrtc_agl001_thermostat
       data:
-        temperature: '{{states(''input_number.schedule_target_temp_study'')}}'
+        temperature: '{{states(''input_number.pre_boost_temp_study'')}}'
         hvac_mode: heat
     else:
     - service: climate.set_temperature
@@ -697,7 +697,7 @@
       target:
         entity_id: climate.aqara_trv_spare_room_1_thermostat
       data:
-        temperature: '{{states(''input_number.schedule_target_temp_spareroom_1'')}}'
+        temperature: '{{states(''input_number.pre_boost_temp_spareroom_1'')}}'
         hvac_mode: heat
     else:
     - service: climate.set_temperature
