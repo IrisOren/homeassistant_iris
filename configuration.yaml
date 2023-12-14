@@ -29,23 +29,24 @@ template:
             False
           {% endif %}
       - name: "study_trv_temp_switch_on"
+      #additional term -0.2 added to RHS to ensure that TRV is open when boiler turns on 
         state: >
-          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "temperature")) }}
+          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "temperature")-0.2) }}
       - name: "study_trv_temp_switch_off"
         state: >
-          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "current_temperature")) > float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "temperature")) }}
+          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "current_temperature")) > float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat", "temperature")-0.2) }}
       - name: "livingroom_trv_temp_switch_on"
         state: >
-          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "temperature")) }}
+          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "temperature")-0.2) }}
       - name: "livingroom_trv_temp_switch_off"
         state: >
-          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "current_temperature")) > float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "temperature")) }}
+          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "current_temperature")) > float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_2", "temperature")-0.2) }}
       - name: "bedroom_trv_temp_switch_on"
         state: >
-          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "temperature")) }}
+          {{ float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "current_temperature")) < float(state_attr("climate.lumi_lumi_airrtc_agl001_thermostat_3", "temperature")-0.2) }}
       - name: "spare_room_1_trv_temp_switch_on"
         state: >
-           {{ float(state_attr("climate.aqara_trv_spare_room_1_thermostat", "current_temperature")) < float(state_attr("climate.aqara_trv_spare_room_1_thermostat", "temperature")) }}
+           {{ float(state_attr("climate.aqara_trv_spare_room_1_thermostat", "current_temperature")) < float(state_attr("climate.aqara_trv_spare_room_1_thermostat", "temperature")-0.2) }}
       - name: "at_least_one_trv_heating"
         state: >
           {{ is_state("binary_sensor.livingroom_trv_temp_switch_on", "on") or is_state("binary_sensor.spare_room_1_trv_temp_switch_on", "on") or is_state("binary_sensor.study_trv_temp_switch_on", "on")  or is_state("binary_sensor.bedroom_trv_temp_switch_on", "on") }}
