@@ -1,0 +1,117 @@
+views:
+  - title: Boiler
+    path: 'n'
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: input_number.heating_pause_hrs_all
+            name: Pause all heating time (hrs)
+          - entity: input_button.pause_run_all
+          - entity: input_button.cancel_pause_run_all
+        title: Pause all
+      - type: entities
+        entities:
+          - entity: input_number.boost_time_boiler
+            name: Boost boiler time (minutes)
+          - entity: input_button.boost_boiler
+        title: Boost boiler
+  - title: Livingroom
+    badges: []
+    cards:
+      - type: entity
+        entity: climate.lumi_lumi_airrtc_agl001_thermostat_2
+        attribute: current_temperature
+        unit: C
+      - type: entities
+        entities:
+          - entity: input_number.schedule_target_temp_livingroom
+          - entity: input_button.set_schedule_temp_livingroom
+          - entity: schedule.thermostat_schedule_livingroom
+        title: 'Target temperature '
+      - type: entities
+        entities:
+          - entity: input_number.heating_pause_hrs_livingroom
+          - entity: input_button.pause_run_livingroom
+          - entity: input_button.cancel_pause_run_livingroom
+        title: 'Pause heating '
+      - type: entities
+        entities:
+          - entity: input_number.boost_time_livingroom
+          - entity: input_button.boost_livingroom
+          - entity: input_button.cancel_boost_livingroom
+        title: Boost
+  - title: Bedroom
+    badges: []
+    cards:
+      - type: entity
+        entity: climate.lumi_lumi_airrtc_agl001_thermostat_3
+        attribute: current_temperature
+        unit: C
+      - type: entities
+        entities:
+          - entity: input_number.schedule_target_temp_bedroom
+          - entity: input_button.set_schedule_temp_bedroom
+          - entity: schedule.thermostat_schedule_bedroom
+        title: 'Target temperature '
+      - type: entities
+        entities:
+          - entity: input_number.heating_pause_hrs_bedroom
+          - entity: input_button.pause_run_bedroom
+          - entity: input_button.cancel_pause_run_bedroom
+        title: 'Pause heating '
+      - type: entities
+        entities:
+          - entity: input_number.boost_time_bedroom
+          - entity: input_button.boost_bedroom
+          - entity: input_button.cancel_boost_bedroom
+        title: Boost
+  - title: Study
+    badges: []
+    cards:
+      - type: entity
+        entity: climate.lumi_lumi_airrtc_agl001_thermostat
+        attribute: current_temperature
+        unit: C
+      - type: entities
+        entities:
+          - entity: input_number.schedule_target_temp_study
+          - entity: input_button.set_schedule_temp_study
+          - entity: schedule.thermostat_schedule_study
+        title: 'Target temperature '
+      - type: entities
+        entities:
+          - entity: input_number.heating_pause_hrs_study
+          - entity: input_button.pause_run_study
+          - entity: input_button.cancel_pause_run_study
+        title: 'Pause heating '
+      - type: entities
+        entities:
+          - entity: input_number.boost_time_study
+          - entity: input_button.boost_study
+          - entity: input_button.cancel_boost_study
+        title: Boost
+  - title: Spareroom_1
+    badges: []
+    cards:
+      - type: entity
+        entity: climate.aqara_trv_spare_room_1_thermostat
+        attribute: current_temperature
+      - type: entities
+        entities:
+          - entity: input_number.schedule_target_temp_spareroom_1
+          - entity: input_button.set_schedule_temp_spareroom_1
+          - entity: schedule.thermostat_schedule_spareroom_1_2
+        title: 'Target temperature '
+      - type: entities
+        entities:
+          - entity: input_number.heating_pause_hrs_spareroom_1
+          - entity: input_button.pause_run_spareroom_1
+          - entity: input_button.cancel_pause_run_spareroom_1
+        title: 'Pause heating '
+      - type: entities
+        entities:
+          - entity: input_number.boost_time_spareroom_1
+          - entity: input_button.boost_spareroom_1
+          - entity: input_button.cancel_boost_spareroom_1
+        title: Boost
